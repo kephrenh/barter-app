@@ -4,8 +4,8 @@ export default function FrontLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <main className="flex-1">{children}</main>
-    </>
+    <main className="flex-1 py-16 lg:py-0 w-full flex flex-col justify-center items-center">
+      {children}
+    </main>
   );
 }

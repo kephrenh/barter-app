@@ -4,6 +4,11 @@ import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 
+import Footer from "@/components/footer/footer";
+import Header from "@/components/header/header";
+import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
+import { frFR } from "@clerk/localizations";
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -19,13 +24,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen relative flex flex-col items-center bg-background font-sans antialiased"
-        )}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider localization={frFR}>
+      <html lang="fr">
+        <body
+          className={cn(
+            "min-h-screen max-w-7xl mx-auto flex flex-col items-center bg-background font-sans antialiased"
+          )}>
+          <ClerkLoading>
+            <div className="flex items-center justify-center h-screen text-2xl">Chargement...</div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <Header />
+            {children}
+            <Footer />
+          </ClerkLoaded>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
